@@ -8,12 +8,7 @@ import {
 import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
-
-const hatpage = () => (
-  <div>
-    <h1>HEllo wolds</h1>
-  </div>
-)
+import ShopPage from './pages/shop/shop.component'
 
 function App() {
   return (
@@ -21,7 +16,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path='/' component={HomePage}/>
-          <Route path='/shop/hats' component={hatpage}/>
+          <Route path='/shop' component={ShopPage}/>
         </Switch>
       </Router>
     </div>
