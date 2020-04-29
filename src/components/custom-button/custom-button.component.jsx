@@ -3,12 +3,12 @@ import React from "react";
 import "./custom-button.styles.scss";
 
 const CustomButton = ({ children, isGoogleSingIn, ...otherProps }) => (
-  <div
+  <button
     className={`${isGoogleSingIn ? "google-sing-in" : ""} custom-button`}
     {...otherProps}
   >
     {children}
-  </div>
+  </button>
 );
 
 export default CustomButton;
