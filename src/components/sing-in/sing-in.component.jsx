@@ -1,9 +1,13 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import {
+  googleSingInStart,
+  emailSingInStart,
+} from "../../redux/user/user.actions";
 
 import "./sing-in.styles.scss";
 
@@ -19,15 +23,10 @@ class SingIn extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-
+    const { emailSingInStart } = this.props;
     const { email, password } = this.state;
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: "", password: "" });
-    } catch (error) {
-      console.log(error);
-    }
+    emailSingInStart(email, password);
   };
 
   handleChange = (event) => {
@@ -37,6 +36,7 @@ class SingIn extends Component {
   };
 
   render() {
+    const { googleSingInStart } = this.props;
     return (
       <div className="sing-in">
         <h2>I already have an account</h2>
@@ -64,7 +64,7 @@ class SingIn extends Component {
             <CustomButton type="submit">Sing In</CustomButton>
             <CustomButton
               type="button"
-              onClick={signInWithGoogle}
+              onClick={googleSingInStart}
               isGoogleSingIn
             >
               Sing in with google
@@ -76,4 +76,10 @@ class SingIn extends Component {
   }
 }
 
-export default SingIn;
+const mapDispatchToProps = (dispatch) => ({
+  googleSingInStart: () => dispatch(googleSingInStart()),
+  emailSingInStart: (email, password) =>
+    dispatch(emailSingInStart({ email, password })),
+});
+
+export default connect(null, mapDispatchToProps)(SingIn);
